@@ -1,4 +1,6 @@
 import React from 'react';
+import IconButton from '../IconButton/index';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export interface Props {
     cols: number;
@@ -10,7 +12,7 @@ const Content: React.FC<Props> = (props) => {
   if ( props.cols === 1 ) {
     return <div className="row" >
     	<div className="col-12 text-break">
-    	<input className="form-control" onChange={props.changeText} value={ props.text } />
+      <TextareaAutosize className="form-control" onChange={props.changeText} value={ props.text }  />
     	</div>
 	</div>;
   } else if ( props.cols === 2 ) {
@@ -55,7 +57,7 @@ class Layout extends React.Component<any, any> {
     super( props );
     this.state = {
       cols: 1,
-		text: localStorage.getItem( 'myValueInLocalStorage' )      
+		  text: localStorage.getItem( 'myValueInLocalStorage' )      
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,23 +76,22 @@ class Layout extends React.Component<any, any> {
   	this.setState({cols});
   }
   handleChangeText ( event: any ) {
-  console.log(event.target.value)
   	localStorage.setItem( 'myValueInLocalStorage' , event.target.value );
   	this.setState({ text: event.target.value });
   }
   render() {
     return (
-    <div>
-  		<h1 className="text-center mb-5">Home</h1>
-  		<div className="btn-group mb-4 d-flex" role="group" aria-label="Basic example">
-		  <button type="button" onClick={() => this.handleCols( 1 )} className="btn btn-info btn-lg w-100">Single column</button>
-		  <button type="button" onClick={() => this.handleCols( 2 )} className="btn btn-info btn-lg w-100">2 columns</button>
-		  <button type="button" onClick={() => this.handleCols( 3 )} className="btn btn-info btn-lg w-100">3 columns</button>
-		</div>
-		<div className="text-center">
-    	 <Content cols={this.state.cols} changeText={this.handleChangeText} text={this.state.text} />
-		</div>
-	</div>
+      <div>
+        <h1 className="text-center mb-5">Home</h1>
+        <div className="btn-group mb-4 d-flex" role="group" aria-label="Basic example">
+          <IconButton onClick={ () => this.handleCols( 1 ) } iconClass="fa-home" className="btn btn-info btn-lg w-100" title="Single column" />
+          <IconButton onClick={ () => this.handleCols( 2 ) } iconClass="fa-home" className="btn btn-info btn-lg w-100" title="2 columns" />
+          <IconButton onClick={ () => this.handleCols( 3 ) } iconClass="fa-wrench" className="btn btn-info btn-lg w-100" title="3 columns" />
+        </div>
+        <div className="text-center">
+          <Content cols={this.state.cols} changeText={this.handleChangeText} text={this.state.text} />
+        </div>
+      </div>
     );
   }
 }

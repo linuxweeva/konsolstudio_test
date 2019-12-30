@@ -1,4 +1,7 @@
 import React from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
+
+
 export interface Props {
     history: any;
 }
@@ -19,7 +22,7 @@ const Hello: React.FC<Props> = (props) => {
   		<h1 className="text-center mb-5">Home</h1>
       <div className="form-group">
       <label>Input text</label>
-      	<textarea className="form-control form-control-lg" onChange={onChange} value={value}></textarea>
+      <TextareaAutosize className="form-control form-control-lg" onChange={onChange} value={value}   />
       </div>
       <button onClick={ handleSubmit} className="btn-block btn btn-primary btn-lg">Layout</button>
     </div>
